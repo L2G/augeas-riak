@@ -14,3 +14,7 @@ module Riak =
   let app_config = (bitcask | eleveldb | kernel)
 
   let lns = Erlang.config app_config
+
+  let filter = incl "/etc/riak/app.config"
+
+  let xmf = transform lns filter
