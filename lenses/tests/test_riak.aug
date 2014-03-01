@@ -1,5 +1,5 @@
 module Test_riak =
-	test lns get "[
+	test Riak.lns get "[
         {bitcask, [
                 {data_root, \"/var/lib/riak/bitcask\"}
         ]},
