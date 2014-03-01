@@ -1,19 +1,18 @@
 module Riak =
   autoload xmf
 
-  let data_root = Erlang.value "data_root" Erlang.path
+  (* Primitives *)
 
-  let bitcask  = Erlang.list "bitcask" data_root
-  let eleveldb = Erlang.list "eleveldb" data_root
+  let comment = Erlang.comment
 
-  let kernel = Erlang.list "kernel" (
-    Erlang.value "inet_dist_listen_max" Erlang.integer |
-    Erlang.value "inet_dist_listen_min" Erlang.integer
-  )
+  let path_value (kw:string) = Erlang.value kw Erlang.path
+  let ring_state_dir = path_value "ring_state_dir"
 
-  let app_config = (bitcask | eleveldb | kernel)
+  (* Riak app config *)
 
-  let lns = Erlang.config app_config
+
+  (* Standard autoload setup *)
+  let lns = (Util.empty | comment)*
 
   let filter = incl "/etc/riak/app.config"
 
