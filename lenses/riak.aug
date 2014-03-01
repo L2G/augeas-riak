@@ -1,4 +1,6 @@
 module Riak =
+  autoload xmf
+
   let data_root = Erlang.value "data_root" Erlang.path
 
   let bitcask  = Erlang.list "bitcask" data_root
