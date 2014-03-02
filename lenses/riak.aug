@@ -11,7 +11,15 @@ module Riak =
   let rbrace  = Erlang.rbrace
   let rspace  = Erlang.rspace
 
-  let path_value (kw:string) = Erlang.value kw Erlang.path
+  let ip_port_tuple =
+      rspace lbrace
+    . [ label "ip"   . Quote.do_dquote ( store Rx.ip ) ]
+    . lrspace comma
+    . [ label "port" . Erlang.integer ]
+    . lspace rbrace
+
+  let integer_value (kw:string) = Erlang.value kw Erlang.integer
+  let path_value (kw:string)    = Erlang.value kw Erlang.path
 
   (******** Riak app config ********)
 
