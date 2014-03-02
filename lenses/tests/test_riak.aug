@@ -24,6 +24,12 @@ module Test_riak =
       set "/ip" "dont.take.a.hostname.example.com"
     = *
 
+  (* user_tuple *)
+  let user_tuple = "{\"isis\",\"guest\"}"
+
+  test Riak.user_tuple
+    get user_tuple = ( {"username" = "isis"} {"password" = "guest"} )
+
   (* boolean_value *)
   let boolean_value = "{truthiness, false}"
 

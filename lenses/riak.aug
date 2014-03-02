@@ -21,6 +21,8 @@ module Riak =
   let ip_port_tuple =
     labeled_tuple "ip" ( Quote.do_dquote ( store Rx.ip ) )
                   "port" Erlang.integer
+  let user_tuple = labeled_tuple "username" Erlang.quoted
+                                 "password" Erlang.quoted
 
   let boolean_value (kw:string) = Erlang.value kw Erlang.boolean
   let integer_value (kw:string) = Erlang.value kw Erlang.integer
