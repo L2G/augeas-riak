@@ -7,6 +7,23 @@ module Test_riak =
 
   test Riak.comment get comment = { "#comment" = "% this is a comment" }
 
+  (* ip_port_tuple *)
+  let ip_port_tuple = "{\"8.8.8.8\", 53}"
+
+  test Riak.ip_port_tuple
+    get ip_port_tuple = ( {"ip" = "8.8.8.8"} {"port" = "53"} )
+
+  test Riak.ip_port_tuple
+    put ip_port_tuple after
+      set "/ip" "127.128.129.130";
+      set "/port" "123"
+    = "{\"127.128.129.130\", 123}"
+
+  test Riak.ip_port_tuple
+    put ip_port_tuple after
+      set "/ip" "dont.take.a.hostname.example.com"
+    = *
+
   (* boolean_value *)
   let boolean_value = "{truthiness, false}"
 
@@ -37,23 +54,6 @@ module Test_riak =
   test (Riak.integer_value "magic_number")
     put integer_value after
       set "/magic_number" "I am not a number, I am a free man!"
-    = *
-
-  (* ip_port_tuple *)
-  let ip_port_tuple = "{\"8.8.8.8\", 53}"
-
-  test Riak.ip_port_tuple
-    get ip_port_tuple = ( {"ip" = "8.8.8.8"} {"port" = "53"} )
-
-  test Riak.ip_port_tuple
-    put ip_port_tuple after
-      set "/ip" "127.128.129.130";
-      set "/port" "123"
-    = "{\"127.128.129.130\", 123}"
-
-  test Riak.ip_port_tuple
-    put ip_port_tuple after
-      set "/ip" "dont.take.a.hostname.example.com"
     = *
 
   (* path_value *)
