@@ -18,6 +18,7 @@ module Riak =
     . [ label "port" . Erlang.integer ]
     . lspace rbrace
 
+  let boolean_value (kw:string) = Erlang.value kw Erlang.boolean
   let integer_value (kw:string) = Erlang.value kw Erlang.integer
   let path_value (kw:string)    = Erlang.value kw Erlang.path
 

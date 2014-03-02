@@ -7,6 +7,22 @@ module Test_riak =
 
   test Riak.comment get comment = { "#comment" = "% this is a comment" }
 
+  (* boolean_value *)
+  let boolean_value = "{truthiness, false}"
+
+  test (Riak.boolean_value "truthiness")
+    get boolean_value = { "truthiness" = "false" }
+
+  test (Riak.boolean_value "truthiness")
+    put boolean_value after
+      set "/truthiness" "true"
+    = "{truthiness, true}"
+
+  test (Riak.boolean_value "truthiness")
+    put boolean_value after
+      set "/truthiness" "kinda_sorta"
+    = *
+
   (* integer_value *)
   let integer_value = "{magic_number, 33}"
 
