@@ -21,6 +21,8 @@ module Riak =
   let integer_value (kw:string) = Erlang.value kw Erlang.integer
   let path_value (kw:string)    = Erlang.value kw Erlang.path
 
+  let ip_port_list (kw:string) = Erlang.list kw ip_port_tuple
+
   (******** Riak app config ********)
 
 

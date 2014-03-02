@@ -51,3 +51,16 @@ module Test_riak =
       set "/ring_state_dir" "/opt/local/lib/riak/ring"
     = "{ring_state_dir, \"/opt/local/lib/riak/ring\"}"
 
+  (* ip_port_list *)
+  let ip_port_list = "{pb, [ {\"127.0.0.1\", 8087} ]}"
+
+  test (Riak.ip_port_list "pb")
+    get ip_port_list = { "pb" {"ip" = "127.0.0.1"} {"port" = "8087"} }
+
+  test (Riak.ip_port_list "pb")
+    put ip_port_list after
+      set "/pb/ip" "8.8.8.8";
+      set "/pb/port" "23";
+      set "/pb/ip[last]" "127.126.125.124";
+      set "/pb/port[last]" "8888"
+    = "{pb, [ {\"8.8.8.8\", 23},{\"127.126.125.124\",8888} ]}"
