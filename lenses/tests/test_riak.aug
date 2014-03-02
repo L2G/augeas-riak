@@ -86,3 +86,20 @@ module Test_riak =
       set "/pb/ip[last]" "127.126.125.124";
       set "/pb/port[last]" "8888"
     = "{pb, [ {\"8.8.8.8\", 23},{\"127.126.125.124\",8888} ]}"
+
+  (* user_list *)
+  let user_list = "{userlist, [{\"user\",\"pass\"}]}"
+
+  test (Riak.user_list "userlist")
+    get user_list = { "userlist"
+                      { "username" = "user" }
+                      { "password" = "pass" }
+                    }
+
+  test (Riak.user_list "userlist")
+    put user_list after
+      set "/userlist/username" "archer";
+      set "/userlist/password" "duchess";
+      set "/userlist/username[last]" "krieger";
+      set "/userlist/password[last]" "bumfights"
+    = "{userlist, [{\"archer\",\"duchess\"},{\"krieger\",\"bumfights\"}]}"
