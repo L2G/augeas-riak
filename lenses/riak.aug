@@ -11,12 +11,16 @@ module Riak =
   let rbrace  = Erlang.rbrace
   let rspace  = Erlang.rspace
 
-  let ip_port_tuple =
+  let labeled_tuple (label1:string) (value1:lens) (label2:string) (value2:lens) =
       rspace lbrace
-    . [ label "ip"   . Quote.do_dquote ( store Rx.ip ) ]
+    . [ label label1 . value1 ]
     . lrspace comma
-    . [ label "port" . Erlang.integer ]
+    . [ label label2 . value2 ]
     . lspace rbrace
+
+  let ip_port_tuple =
+    labeled_tuple "ip" ( Quote.do_dquote ( store Rx.ip ) )
+                  "port" Erlang.integer
 
   let boolean_value (kw:string) = Erlang.value kw Erlang.boolean
   let integer_value (kw:string) = Erlang.value kw Erlang.integer
